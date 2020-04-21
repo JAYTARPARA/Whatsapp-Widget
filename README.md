@@ -25,20 +25,20 @@
 <div style="text-align: center">
 	<table>
 		<tr>
-			<td style="text-align: center"><img src="wawidget/splash.jpg" width="600"/></td>
-			<td style="text-align: center"><img src="wawidget/1.jpg" width="610"/></td>
+			<td style="text-align: center"><img src="attachments/1.png" width="600"/></td>
+			<td style="text-align: center"><img src="attachments/2.png" width="610"/></td>
 		</tr>
 		<tr>
-			<td style="text-align: center"><img src="wawidget/2.jpg" width="600"/></td>
-			<td style="text-align: center"><img src="wawidget/3.jpg" width="610"/></td>
+			<td style="text-align: center"><img src="attachments/3.png" width="600"/></td>
+			<td style="text-align: center"><img src="attachments/4.png" width="610"/></td>
 		</tr>
 		<tr>
-			<td style="text-align: center"><img src="wawidget/4.jpg" width="610"/></td>
-			<td style="text-align: center"><img src="wawidget/5.jpg" width="610"/></td>
+			<td style="text-align: center"><img src="attachments/5.png" width="610"/></td>
+			<td style="text-align: center"><img src="attachments/6.png" width="610"/></td>
 		</tr>
 		<tr>
-			<td style="text-align: center"><img src="wawidget/6.jpg" width="610"/></td>
-			<td style="text-align: center"><img src="wawidget/7.jpg" width="610"/></td>
+			<td style="text-align: center"><img src="attachments/7.png" width="610"/></td>
+			<td style="text-align: center"><img src="attachments/8.png" width="610"/></td>
 		</tr>
 	</table>
 </div>
