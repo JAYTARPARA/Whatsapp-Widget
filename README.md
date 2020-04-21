@@ -34,6 +34,11 @@
 		</tr>
 		<tr>
 			<td style="text-align: center"><img src="wawidget/4.jpg" width="610"/></td>
+			<td style="text-align: center"><img src="wawidget/5.jpg" width="610"/></td>
+		</tr>
+		<tr>
+			<td style="text-align: center"><img src="wawidget/6.jpg" width="610"/></td>
+			<td style="text-align: center"><img src="wawidget/7.jpg" width="610"/></td>
 		</tr>
 	</table>
 </div>
