@@ -8,6 +8,7 @@
 .buildlog/
 .history
 .svn/
+WA Details.txt
 
 # IntelliJ related
 *.iml
@@ -29,7 +30,6 @@
 .pub-cache/
 .pub/
 /build/
-.WA Details.txt
 
 # Web related
 lib/generated_plugin_registrant.dart

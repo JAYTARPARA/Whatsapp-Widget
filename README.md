@@ -25,20 +25,20 @@
 <div style="text-align: center">
 	<table>
 		<tr>
-			<td style="text-align: center"><img src="attachments/1.png" width="600"/></td>
-			<td style="text-align: center"><img src="attachments/2.png" width="610"/></td>
+			<td style="text-align: center"><img src="attachments/mockup/1.png" width="600"/></td>
+			<td style="text-align: center"><img src="attachments/mockup/2.png" width="610"/></td>
 		</tr>
 		<tr>
-			<td style="text-align: center"><img src="attachments/3.png" width="600"/></td>
-			<td style="text-align: center"><img src="attachments/4.png" width="610"/></td>
+			<td style="text-align: center"><img src="attachments/mockup/3.png" width="600"/></td>
+			<td style="text-align: center"><img src="attachments/mockup/4.png" width="610"/></td>
 		</tr>
 		<tr>
-			<td style="text-align: center"><img src="attachments/5.png" width="610"/></td>
-			<td style="text-align: center"><img src="attachments/6.png" width="610"/></td>
+			<td style="text-align: center"><img src="attachments/mockup/5.png" width="610"/></td>
+			<td style="text-align: center"><img src="attachments/mockup/6.png" width="610"/></td>
 		</tr>
 		<tr>
-			<td style="text-align: center"><img src="attachments/7.png" width="610"/></td>
-			<td style="text-align: center"><img src="attachments/8.png" width="610"/></td>
+			<td style="text-align: center"><img src="attachments/mockup/7.png" width="610"/></td>
+			<td style="text-align: center"><img src="attachments/mockup/8.png" width="610"/></td>
 		</tr>
 	</table>
 </div>
