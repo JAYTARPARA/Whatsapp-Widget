@@ -6,7 +6,7 @@
 </a>
 
 <div align="center">
-  <img src="android/app/src/main/ic_launcher-web.png" width=200> 
+  <img src="assets/images/icon.png" width=200> 
 </div>
 
 
@@ -17,7 +17,7 @@
 <br/>
 <br/> 
 
-<a href="https://play.google.com/store/apps/details?id=com.github.invertedx.stories">
+<a href="https://play.google.com/store/apps/dev?id=7435506917924983096">
  <img alt='Get it on Google Play' src='https://play.google.com/intl/en_gb/badges/images/generic/en_badge_web_generic.png' width="230">
 </a>
  
