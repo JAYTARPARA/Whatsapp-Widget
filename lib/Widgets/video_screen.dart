@@ -1,3 +1,4 @@
+import 'package:dmwa/utils/common.dart';
 import 'package:dmwa/utils/video_play.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -58,6 +59,7 @@ class _VideoGridState extends State<VideoGrid> {
 
   @override
   Widget build(BuildContext context) {
+    var mediaQuery = MediaQuery.of(context);
     var videoList = widget.directory
         .listSync()
         .map((item) => item.path)
@@ -66,73 +68,78 @@ class _VideoGridState extends State<VideoGrid> {
 
     if (videoList != null) {
       if (videoList.length > 0) {
-        return Container(
-          margin: EdgeInsets.symmetric(
-            horizontal: 8.0,
-            vertical: 8.0,
+        return Padding(
+          padding: EdgeInsets.only(
+            bottom: Common().getSmartBannerHeight(mediaQuery),
           ),
-          child: GridView.builder(
-            itemCount: videoList.length,
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              // childAspectRatio: 1.0,
-              childAspectRatio: MediaQuery.of(context).size.width /
-                  (MediaQuery.of(context).size.height / 1.25),
-              mainAxisSpacing: 8.0,
-              crossAxisSpacing: 8.0,
+          child: Container(
+            margin: EdgeInsets.symmetric(
+              horizontal: 8.0,
+              vertical: 8.0,
             ),
-            itemBuilder: (context, index) {
-              return InkWell(
-                onTap: () => Navigator.push(
-                  context,
-                  new MaterialPageRoute(
-                    builder: (context) => new PlayStatus(videoList[index]),
-                  ),
-                ),
-                child: ClipRRect(
-                  // borderRadius: BorderRadius.all(Radius.circular(12)),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Colors.black87,
+            child: GridView.builder(
+              itemCount: videoList.length,
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                // childAspectRatio: 1.0,
+                childAspectRatio: MediaQuery.of(context).size.width /
+                    (MediaQuery.of(context).size.height / 1.25),
+                mainAxisSpacing: 8.0,
+                crossAxisSpacing: 8.0,
+              ),
+              itemBuilder: (context, index) {
+                return InkWell(
+                  onTap: () => Navigator.push(
+                    context,
+                    new MaterialPageRoute(
+                      builder: (context) => new PlayStatus(videoList[index]),
                     ),
-                    child: FutureBuilder(
-                        future: _getImage(videoList[index]),
-                        builder: (context, snapshot) {
-                          if (snapshot.connectionState ==
-                              ConnectionState.done) {
-                            if (snapshot.hasData) {
+                  ),
+                  child: ClipRRect(
+                    // borderRadius: BorderRadius.all(Radius.circular(12)),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.black87,
+                      ),
+                      child: FutureBuilder(
+                          future: _getImage(videoList[index]),
+                          builder: (context, snapshot) {
+                            if (snapshot.connectionState ==
+                                ConnectionState.done) {
+                              if (snapshot.hasData) {
+                                return Hero(
+                                  tag: videoList[index],
+                                  child: Image.file(
+                                    File(snapshot.data),
+                                    fit: BoxFit.cover,
+                                  ),
+                                );
+                              } else {
+                                return Center(
+                                  child: SpinKitWave(
+                                    color: Colors.white,
+                                    size: 30.0,
+                                  ),
+                                );
+                              }
+                            } else {
                               return Hero(
                                 tag: videoList[index],
-                                child: Image.file(
-                                  File(snapshot.data),
-                                  fit: BoxFit.cover,
-                                ),
-                              );
-                            } else {
-                              return Center(
-                                child: SpinKitWave(
-                                  color: Colors.white,
-                                  size: 30.0,
+                                child: Container(
+                                  height: 280.0,
+                                  child: SpinKitWave(
+                                    color: Colors.white,
+                                    size: 30.0,
+                                  ),
                                 ),
                               );
                             }
-                          } else {
-                            return Hero(
-                              tag: videoList[index],
-                              child: Container(
-                                height: 280.0,
-                                child: SpinKitWave(
-                                  color: Colors.white,
-                                  size: 30.0,
-                                ),
-                              ),
-                            );
-                          }
-                        }),
+                          }),
+                    ),
                   ),
-                ),
-              );
-            },
+                );
+              },
+            ),
           ),
         );
       } else {

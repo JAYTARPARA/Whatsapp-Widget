@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 
+import 'package:dmwa/utils/common.dart';
 import 'package:dmwa/utils/video_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -53,6 +54,7 @@ class _PlayStatusState extends State<PlayStatus> {
 
   @override
   Widget build(BuildContext context) {
+    var mediaQuery = MediaQuery.of(context);
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
@@ -67,46 +69,56 @@ class _PlayStatusState extends State<PlayStatus> {
           onPressed: () => Navigator.of(context).pop(),
         ),
       ),
-      body: Container(
-        child: StatusVideo(
-          videoPlayerController: VideoPlayerController.file(
-            File(widget.videoFile),
+      body: Padding(
+        padding: EdgeInsets.only(
+          bottom: Common().getSmartBannerHeight(mediaQuery),
+        ),
+        child: Container(
+          child: StatusVideo(
+            videoPlayerController: VideoPlayerController.file(
+              File(widget.videoFile),
+            ),
+            looping: true,
+            videoSrc: widget.videoFile,
           ),
-          looping: true,
-          videoSrc: widget.videoFile,
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-          backgroundColor: Colors.white,
-          child: Icon(Icons.save),
-          onPressed: () async {
-            _onLoading(true);
+      floatingActionButton: Padding(
+        padding: EdgeInsets.only(
+          bottom: Common().getSmartBannerHeight(mediaQuery),
+        ),
+        child: FloatingActionButton(
+            backgroundColor: Colors.white,
+            child: Icon(Icons.save),
+            onPressed: () async {
+              _onLoading(true);
 
-            File originalVideoFile = File(widget.videoFile);
-            Uint8List bytes;
+              File originalVideoFile = File(widget.videoFile);
+              Uint8List bytes;
 
-            await originalVideoFile.readAsBytes().then((value) {
-              bytes = Uint8List.fromList(value);
-              print('reading of bytes is completed');
-            }).catchError((onError) {
-              print('Exception Error while reading audio from path:' +
-                  onError.toString());
-            });
-            final result = await ImageGallerySaver.saveFile(widget.videoFile);
-            print(result);
+              await originalVideoFile.readAsBytes().then((value) {
+                bytes = Uint8List.fromList(value);
+                print('reading of bytes is completed');
+              }).catchError((onError) {
+                print('Exception Error while reading audio from path:' +
+                    onError.toString());
+              });
+              final result = await ImageGallerySaver.saveFile(widget.videoFile);
+              print(result);
 
-            _onLoading(false);
+              _onLoading(false);
 
-            Fluttertoast.showToast(
-              msg: "Video Saved",
-              toastLength: Toast.LENGTH_LONG,
-              gravity: ToastGravity.BOTTOM,
-              timeInSecForIosWeb: 3,
-              backgroundColor: Colors.green,
-              textColor: Colors.white,
-              fontSize: 16.0,
-            );
-          }),
+              Fluttertoast.showToast(
+                msg: "Video Saved",
+                toastLength: Toast.LENGTH_LONG,
+                gravity: ToastGravity.BOTTOM,
+                timeInSecForIosWeb: 3,
+                backgroundColor: Colors.green,
+                textColor: Colors.white,
+                fontSize: 16.0,
+              );
+            }),
+      ),
     );
   }
 }

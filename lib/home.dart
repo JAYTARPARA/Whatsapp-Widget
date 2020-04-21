@@ -1,13 +1,38 @@
 import 'package:dmwa/Widgets/download_status.dart';
 import 'package:dmwa/Widgets/send_message.dart';
+import 'package:dmwa/utils/common.dart';
 import 'package:dmwa/utils/share.dart';
 import 'package:double_back_to_close_app/double_back_to_close_app.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:firebase_admob/firebase_admob.dart';
 
 class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    FirebaseAdMob.instance.initialize(
+      appId: Common().admobAppId,
+    );
+
+    BannerAd myBanner = BannerAd(
+      // Replace the testAdUnitId with an ad unit id from the AdMob dash.
+      // https://developers.google.com/admob/android/test-ads
+      // https://developers.google.com/admob/ios/test-ads
+      // adUnitId: BannerAd.testAdUnitId,
+      adUnitId: Common().bannerUnitId,
+      size: AdSize.smartBanner,
+      listener: (MobileAdEvent event) {
+        // print("BannerAd event is $event");
+      },
+    );
+
+    myBanner
+      // typically this happens well before the ad is shown
+      ..load()
+      ..show(
+        anchorType: AnchorType.bottom,
+      );
+
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -20,6 +45,23 @@ class Home extends StatelessWidget {
           ),
         ),
         centerTitle: true,
+        // leading: Column(
+        //   mainAxisAlignment: MainAxisAlignment.center,
+        //   children: <Widget>[
+        //     IconButton(
+        //       icon: FaIcon(
+        //         FontAwesomeIcons.whatsapp,
+        //         color: Colors.white,
+        //       ),
+        //       onPressed: () {
+        //         FlutterOpenWhatsapp.sendSingleMessage(
+        //           "+919824868568",
+        //           "Hi, I have a project for you...",
+        //         );
+        //       },
+        //     ),
+        //   ],
+        // ),
         actions: <Widget>[
           ShareWidget(),
         ],

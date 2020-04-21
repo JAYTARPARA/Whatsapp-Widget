@@ -8,15 +8,16 @@ class ShareWidget extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
         IconButton(
-            icon: Icon(
-              Icons.share,
-            ),
-            onPressed: () {
-              Share.share(
-                'Checkout whatsapp widget app https://mastersam.io',
-                subject: 'Whatsapp Widget',
-              );
-            }),
+          icon: Icon(
+            Icons.share,
+          ),
+          onPressed: () {
+            Share.share(
+              'Checkout all useful applications \r\n https://play.google.com/store/apps/dev?id=7435506917924983096',
+              subject: 'Whatsapp Widget',
+            );
+          },
+        ),
       ],
     );
   }

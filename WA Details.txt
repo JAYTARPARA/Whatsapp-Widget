@@ -1,0 +1,12 @@
+APP ID: ca-app-pub-4800441463353851~7511567746
+BANNER UNIT ID: ca-app-pub-4800441463353851/5476431346
+
+
+flutter pub run flutter_launcher_icons:main
+
+flutter pub pub run flutter_native_splash:create
+
+
+keytool -genkey -v -keystore whatsapp-widget.jks -alias whatsappwidget -keyalg RSA -keysize 2048 -validity 10000
+
+flutter build apk --split-per-abi

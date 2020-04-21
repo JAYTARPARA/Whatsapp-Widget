@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'dart:typed_data';
+import 'package:dmwa/utils/common.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -53,6 +54,7 @@ class _ViewPhotosState extends State<ViewPhotos> {
 
   @override
   Widget build(BuildContext context) {
+    var mediaQuery = MediaQuery.of(context);
     return Scaffold(
       backgroundColor: Colors.black12,
       appBar: AppBar(
@@ -67,52 +69,62 @@ class _ViewPhotosState extends State<ViewPhotos> {
           onPressed: () => Navigator.of(context).pop(),
         ),
       ),
-      body: SizedBox.expand(
-        child: Stack(
-          children: <Widget>[
-            Align(
-              alignment: Alignment.center,
-              child: Hero(
-                tag: widget.imgPath,
-                child: Image.file(
-                  File(widget.imgPath),
-                  fit: BoxFit.cover,
+      body: Padding(
+        padding: EdgeInsets.only(
+          bottom: Common().getSmartBannerHeight(mediaQuery),
+        ),
+        child: SizedBox.expand(
+          child: Stack(
+            children: <Widget>[
+              Align(
+                alignment: Alignment.center,
+                child: Hero(
+                  tag: widget.imgPath,
+                  child: Image.file(
+                    File(widget.imgPath),
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.white,
-        child: Icon(Icons.save),
-        onPressed: () async {
-          _onLoading(true);
+      floatingActionButton: Padding(
+        padding: EdgeInsets.only(
+          bottom: Common().getSmartBannerHeight(mediaQuery),
+        ),
+        child: FloatingActionButton(
+          backgroundColor: Colors.white,
+          child: Icon(Icons.save),
+          onPressed: () async {
+            _onLoading(true);
 
-          Uri myUri = Uri.parse(widget.imgPath);
-          File originalImageFile = new File.fromUri(myUri);
-          Uint8List bytes;
-          await originalImageFile.readAsBytes().then((value) {
-            bytes = Uint8List.fromList(value);
-            print('reading of bytes is completed');
-          }).catchError((onError) {
-            print('Exception Error while reading audio from path:' +
-                onError.toString());
-          });
-          final result =
-              await ImageGallerySaver.saveImage(Uint8List.fromList(bytes));
-          print(result);
-          _onLoading(false);
-          Fluttertoast.showToast(
-            msg: "Image Saved",
-            toastLength: Toast.LENGTH_LONG,
-            gravity: ToastGravity.BOTTOM,
-            timeInSecForIosWeb: 3,
-            backgroundColor: Colors.green,
-            textColor: Colors.white,
-            fontSize: 16.0,
-          );
-        },
+            Uri myUri = Uri.parse(widget.imgPath);
+            File originalImageFile = new File.fromUri(myUri);
+            Uint8List bytes;
+            await originalImageFile.readAsBytes().then((value) {
+              bytes = Uint8List.fromList(value);
+              print('reading of bytes is completed');
+            }).catchError((onError) {
+              print('Exception Error while reading audio from path:' +
+                  onError.toString());
+            });
+            final result =
+                await ImageGallerySaver.saveImage(Uint8List.fromList(bytes));
+            print(result);
+            _onLoading(false);
+            Fluttertoast.showToast(
+              msg: "Image Saved",
+              toastLength: Toast.LENGTH_LONG,
+              gravity: ToastGravity.BOTTOM,
+              timeInSecForIosWeb: 3,
+              backgroundColor: Colors.green,
+              textColor: Colors.white,
+              fontSize: 16.0,
+            );
+          },
+        ),
       ),
     );
   }

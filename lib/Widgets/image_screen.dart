@@ -1,4 +1,5 @@
 import 'package:dmwa/Widgets/view_photos.dart';
+import 'package:dmwa/utils/common.dart';
 import 'package:flutter/material.dart';
 import 'dart:io';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
@@ -19,6 +20,7 @@ class ImageScreenState extends State<ImageScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var mediaQuery = MediaQuery.of(context);
     if (!Directory("${_photoDir.path}").existsSync()) {
       return Center(
         child: Text(
@@ -36,39 +38,44 @@ class ImageScreenState extends State<ImageScreen> {
           .where((item) => item.endsWith(".jpg"))
           .toList(growable: false);
       if (imageList.length > 0) {
-        return Container(
-          margin: EdgeInsets.all(8.0),
-          child: StaggeredGridView.countBuilder(
-            itemCount: imageList.length,
-            crossAxisCount: 4,
-            itemBuilder: (context, index) {
-              String imgPath = imageList[index];
-              return Material(
-                elevation: 8.0,
-                borderRadius: BorderRadius.all(Radius.circular(8)),
-                child: InkWell(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      new MaterialPageRoute(
-                        builder: (context) => new ViewPhotos(imgPath),
+        return Padding(
+          padding: EdgeInsets.only(
+            bottom: Common().getSmartBannerHeight(mediaQuery),
+          ),
+          child: Container(
+            margin: EdgeInsets.all(8.0),
+            child: StaggeredGridView.countBuilder(
+              itemCount: imageList.length,
+              crossAxisCount: 4,
+              itemBuilder: (context, index) {
+                String imgPath = imageList[index];
+                return Material(
+                  elevation: 8.0,
+                  borderRadius: BorderRadius.all(Radius.circular(8)),
+                  child: InkWell(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        new MaterialPageRoute(
+                          builder: (context) => new ViewPhotos(imgPath),
+                        ),
+                      );
+                    },
+                    child: Hero(
+                      tag: imgPath,
+                      child: Image.file(
+                        File(imgPath),
+                        fit: BoxFit.cover,
                       ),
-                    );
-                  },
-                  child: Hero(
-                    tag: imgPath,
-                    child: Image.file(
-                      File(imgPath),
-                      fit: BoxFit.cover,
                     ),
                   ),
-                ),
-              );
-            },
-            staggeredTileBuilder: (i) =>
-                StaggeredTile.count(2, i.isEven ? 2 : 3),
-            mainAxisSpacing: 8.0,
-            crossAxisSpacing: 8.0,
+                );
+              },
+              staggeredTileBuilder: (i) =>
+                  StaggeredTile.count(2, i.isEven ? 2 : 3),
+              mainAxisSpacing: 8.0,
+              crossAxisSpacing: 8.0,
+            ),
           ),
         );
       } else {
