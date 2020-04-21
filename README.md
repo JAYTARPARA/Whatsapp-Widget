@@ -25,11 +25,14 @@
 <div style="text-align: center">
 	<table>
 		<tr>
-			<td style="text-align: center"><img src="wawidget/1.jpg" width="600"/></td>
-			<td style="text-align: center"><img src="wawidget/2.jpg" width="610"/></td>
+			<td style="text-align: center"><img src="wawidget/splash.jpg" width="600"/></td>
+			<td style="text-align: center"><img src="wawidget/1.jpg" width="610"/></td>
 		</tr>
 		<tr>
+			<td style="text-align: center"><img src="wawidget/2.jpg" width="600"/></td>
 			<td style="text-align: center"><img src="wawidget/3.jpg" width="610"/></td>
+		</tr>
+		<tr>
 			<td style="text-align: center"><img src="wawidget/4.jpg" width="610"/></td>
 		</tr>
 	</table>

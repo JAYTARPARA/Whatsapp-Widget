@@ -2,6 +2,7 @@ import 'package:country_code_picker/country_code_picker.dart';
 import 'package:dmwa/utils/share.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_open_whatsapp/flutter_open_whatsapp.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class SendMessage extends StatefulWidget {
   @override
@@ -154,7 +155,7 @@ class _SendMessageState extends State<SendMessage> {
                         vertical: 0.0,
                       ),
                       child: RaisedButton(
-                        onPressed: () {
+                        onPressed: () async {
                           setState(() {
                             mobile.text.isEmpty
                                 ? validateMobile = true
@@ -173,7 +174,58 @@ class _SendMessageState extends State<SendMessage> {
                           }
                         },
                         child: Text(
-                          "Send Message".toUpperCase(),
+                          "Send to whatsapp".toUpperCase(),
+                          style: TextStyle(
+                            fontWeight: FontWeight.w700,
+                            fontFamily: 'OverpassRegular',
+                          ),
+                        ),
+                        padding: const EdgeInsets.all(15.0),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: new BorderRadius.circular(10.0),
+                        ),
+                        // color: Theme.of(context).primaryColorLight,
+                        color: Theme.of(context).primaryColor,
+                        // color: Colors.green,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 20.0,
+              ),
+              Row(
+                children: <Widget>[
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 20.0,
+                        vertical: 0.0,
+                      ),
+                      child: RaisedButton(
+                        onPressed: () async {
+                          setState(() {
+                            mobile.text.isEmpty
+                                ? validateMobile = true
+                                : validateMobile = false;
+                          });
+
+                          if (!validateMobile) {
+                            FocusScope.of(context).requestFocus(FocusNode());
+                            print(countryCode);
+                            print(mobile.text);
+                            var sendTo = countryCode + mobile.text;
+                            var url = "https://wa.me/" + sendTo + "/?text=Hi";
+                            if (await canLaunch(url)) {
+                              await launch(url);
+                            } else {
+                              throw 'Could not launch $url';
+                            }
+                          }
+                        },
+                        child: Text(
+                          "Send to Whatsapp Business".toUpperCase(),
                           style: TextStyle(
                             fontWeight: FontWeight.w700,
                             fontFamily: 'OverpassRegular',

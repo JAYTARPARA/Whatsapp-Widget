@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
         CountryLocalizations.delegate,
       ],
       debugShowCheckedModeBanner: false,
-      title: "DMWA",
+      title: "WA Widget",
       // theme: ThemeData(
       //   fontFamily: 'Overpass',
       // ),
