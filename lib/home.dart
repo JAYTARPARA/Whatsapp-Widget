@@ -1,13 +1,76 @@
+import 'dart:io';
+
 import 'package:dmwa/Widgets/download_status.dart';
 import 'package:dmwa/Widgets/send_message.dart';
 import 'package:dmwa/utils/common.dart';
 import 'package:dmwa/utils/share.dart';
-import 'package:double_back_to_close_app/double_back_to_close_app.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:firebase_admob/firebase_admob.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 
-class Home extends StatelessWidget {
+class Home extends StatefulWidget {
+  @override
+  _HomeState createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+  Future<bool> _onWillPop() {
+    return Alert(
+      context: context,
+      style: AlertStyle(
+        isCloseButton: false,
+        isOverlayTapDismiss: false,
+        titleStyle: TextStyle(
+          color: Colors.white,
+          fontFamily: 'Overpass',
+        ),
+        descStyle: TextStyle(
+          color: Colors.white,
+          fontFamily: 'Overpass',
+        ),
+        alertBorder: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10.0),
+          side: BorderSide(
+            color: Colors.grey,
+          ),
+        ),
+        animationType: AnimationType.fromTop,
+      ),
+      type: AlertType.warning,
+      title: "EXIT APP",
+      desc: "Are you sure you want to exit?",
+      buttons: [
+        DialogButton(
+          color: Colors.black87,
+          child: Text(
+            "No",
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 20,
+              fontFamily: 'Overpass',
+            ),
+          ),
+          onPressed: () => Navigator.of(context).pop(false),
+          width: 120,
+        ),
+        DialogButton(
+          color: Colors.black87,
+          child: Text(
+            "Yes",
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 20,
+              fontFamily: 'Overpass',
+            ),
+          ),
+          onPressed: () => exit(0),
+          width: 120,
+        ),
+      ],
+    ).show();
+  }
+
   @override
   Widget build(BuildContext context) {
     var mediaQuery = MediaQuery.of(context);
@@ -34,133 +97,125 @@ class Home extends StatelessWidget {
         anchorType: AnchorType.bottom,
       );
 
-    return Padding(
-      padding: EdgeInsets.only(
-        bottom: Common().getSmartBannerHeight(mediaQuery),
-      ),
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text(
-            'Whatsapp Widget',
-            style: TextStyle(
-              // color: Constants.darkBG,
-              fontSize: 18.0,
-              fontWeight: FontWeight.w800,
-              fontFamily: 'Overpass',
-            ),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          'Whatsapp Widget',
+          style: TextStyle(
+            // color: Constants.darkBG,
+            fontSize: 18.0,
+            fontWeight: FontWeight.w800,
+            fontFamily: 'Overpass',
           ),
-          centerTitle: true,
-          // leading: Column(
-          //   mainAxisAlignment: MainAxisAlignment.center,
-          //   children: <Widget>[
-          //     IconButton(
-          //       icon: FaIcon(
-          //         FontAwesomeIcons.whatsapp,
-          //         color: Colors.white,
-          //       ),
-          //       onPressed: () {
-          //         FlutterOpenWhatsapp.sendSingleMessage(
-          //           "+919824868568",
-          //           "Hi, I have a project for you...",
-          //         );
-          //       },
-          //     ),
-          //   ],
-          // ),
-          actions: <Widget>[
-            ShareWidget(),
-          ],
         ),
-        body: DoubleBackToCloseApp(
-          snackBar: const SnackBar(
-            behavior: SnackBarBehavior.floating,
-            content: Text('Press again to exit'),
+        centerTitle: true,
+        // leading: Column(
+        //   mainAxisAlignment: MainAxisAlignment.center,
+        //   children: <Widget>[
+        //     IconButton(
+        //       icon: FaIcon(
+        //         FontAwesomeIcons.whatsapp,
+        //         color: Colors.white,
+        //       ),
+        //       onPressed: () {
+        //         FlutterOpenWhatsapp.sendSingleMessage(
+        //           "+919824868568",
+        //           "Hi, I have a project for you...",
+        //         );
+        //       },
+        //     ),
+        //   ],
+        // ),
+        actions: <Widget>[
+          ShareWidget(),
+        ],
+      ),
+      body: WillPopScope(
+        onWillPop: _onWillPop,
+        child: Padding(
+          padding: EdgeInsets.fromLTRB(
+            10.0,
+            0.0,
+            10.0,
+            0.0,
           ),
-          child: Padding(
-            padding: EdgeInsets.fromLTRB(
-              10.0,
-              0.0,
-              10.0,
-              0.0,
-            ),
-            child: Center(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  RaisedButton.icon(
-                    onPressed: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (BuildContext context) {
-                            return SendMessage();
-                          },
-                        ),
-                      );
-                    },
-                    elevation: 3.0,
-                    icon: Padding(
-                      padding: const EdgeInsets.symmetric(
-                        vertical: 12.0,
-                        horizontal: 12.0,
+          child: Center(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                RaisedButton.icon(
+                  onPressed: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (BuildContext context) {
+                          return SendMessage();
+                        },
                       ),
-                      child: FaIcon(
-                        FontAwesomeIcons.whatsapp,
-                        color: Colors.white,
-                      ),
+                    );
+                  },
+                  elevation: 3.0,
+                  icon: Padding(
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 12.0,
+                      horizontal: 12.0,
                     ),
-                    label: Text(
-                      "Send Message on Whatsapp".toUpperCase(),
-                      style: TextStyle(
-                        fontWeight: FontWeight.w700,
-                        fontFamily: 'OverpassRegular',
-                      ),
+                    child: FaIcon(
+                      FontAwesomeIcons.whatsapp,
+                      color: Colors.white,
                     ),
-                    // padding: const EdgeInsets.all(15.0),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: new BorderRadius.circular(10.0),
-                    ),
-                    color: Theme.of(context).primaryColor,
                   ),
-                  SizedBox(
-                    height: 15.0,
+                  label: Text(
+                    "Send Message on Whatsapp".toUpperCase(),
+                    style: TextStyle(
+                      fontWeight: FontWeight.w700,
+                      fontFamily: 'OverpassRegular',
+                    ),
                   ),
-                  RaisedButton.icon(
-                    onPressed: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (BuildContext context) {
-                            return DownloadStatus();
-                          },
-                        ),
-                      );
-                    },
-                    elevation: 3.0,
-                    icon: Padding(
-                      padding: const EdgeInsets.symmetric(
-                        vertical: 12.0,
-                        horizontal: 12.0,
-                      ),
-                      child: FaIcon(
-                        FontAwesomeIcons.download,
-                        color: Colors.white,
-                      ),
-                    ),
-                    label: Text(
-                      "Download Status".toUpperCase(),
-                      style: TextStyle(
-                        fontWeight: FontWeight.w700,
-                        fontFamily: 'OverpassRegular',
-                      ),
-                    ),
-                    // padding: const EdgeInsets.all(15.0),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: new BorderRadius.circular(10.0),
-                    ),
-                    color: Theme.of(context).primaryColor,
+                  // padding: const EdgeInsets.all(15.0),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: new BorderRadius.circular(10.0),
                   ),
-                ],
-              ),
+                  color: Theme.of(context).primaryColor,
+                ),
+                SizedBox(
+                  height: 15.0,
+                ),
+                RaisedButton.icon(
+                  onPressed: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (BuildContext context) {
+                          return DownloadStatus();
+                        },
+                      ),
+                    );
+                  },
+                  elevation: 3.0,
+                  icon: Padding(
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 12.0,
+                      horizontal: 12.0,
+                    ),
+                    child: FaIcon(
+                      FontAwesomeIcons.download,
+                      color: Colors.white,
+                    ),
+                  ),
+                  label: Text(
+                    "Download Status".toUpperCase(),
+                    style: TextStyle(
+                      fontWeight: FontWeight.w700,
+                      fontFamily: 'OverpassRegular',
+                    ),
+                  ),
+                  // padding: const EdgeInsets.all(15.0),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: new BorderRadius.circular(10.0),
+                  ),
+                  color: Theme.of(context).primaryColor,
+                ),
+              ],
             ),
           ),
         ),
