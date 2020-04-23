@@ -13,7 +13,7 @@ class ShareWidget extends StatelessWidget {
           ),
           onPressed: () {
             Share.share(
-              'Checkout all useful applications \r\n https://play.google.com/store/apps/dev?id=7435506917924983096',
+              'Whatsapp Widget Application \r\n https://bit.ly/WAWidget',
               subject: 'Whatsapp Widget',
             );
           },
