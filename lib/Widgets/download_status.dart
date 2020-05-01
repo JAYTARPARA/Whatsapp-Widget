@@ -4,6 +4,8 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class DownloadStatus extends StatefulWidget {
+  final String type;
+  DownloadStatus(this.type);
   @override
   _DownloadStatusState createState() => _DownloadStatusState();
 }
@@ -81,7 +83,7 @@ class _DownloadStatusState extends State<DownloadStatus> {
           if (status.connectionState == ConnectionState.done) {
             if (status.hasData) {
               if (status.data == 1) {
-                return Dashboard();
+                return Dashboard(widget.type);
               } else {
                 return Scaffold(
                   appBar: AppBar(

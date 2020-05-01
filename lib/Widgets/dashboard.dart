@@ -4,6 +4,8 @@ import 'package:dmwa/utils/share.dart';
 import 'package:flutter/material.dart';
 
 class Dashboard extends StatefulWidget {
+  final String type;
+  Dashboard(this.type);
   @override
   DashboardState createState() => new DashboardState();
 }
@@ -49,8 +51,8 @@ class DashboardState extends State<Dashboard> {
       ),
       body: TabBarView(
         children: [
-          ImageScreen(),
-          VideoScreen(),
+          ImageScreen(widget.type),
+          VideoScreen(widget.type),
         ],
       ),
     );

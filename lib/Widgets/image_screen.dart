@@ -4,10 +4,9 @@ import 'package:flutter/material.dart';
 import 'dart:io';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
-final Directory _photoDir =
-    new Directory('/storage/emulated/0/WhatsApp/Media/.Statuses');
-
 class ImageScreen extends StatefulWidget {
+  final String type;
+  ImageScreen(this.type);
   @override
   ImageScreenState createState() => new ImageScreenState();
 }
@@ -20,11 +19,18 @@ class ImageScreenState extends State<ImageScreen> {
 
   @override
   Widget build(BuildContext context) {
+    Directory _photoDir;
+    if (widget.type == 'wa') {
+      _photoDir = new Directory(Common().photoDirWA);
+    } else if (widget.type == 'wab') {
+      _photoDir = new Directory(Common().photoDirWAB);
+    }
+
     var mediaQuery = MediaQuery.of(context);
     if (!Directory("${_photoDir.path}").existsSync()) {
       return Center(
         child: Text(
-          "Install WhatsApp, Your Friend's Status Will Be Available Here",
+          "Install WhatsApp/WhatsApp Business, Your Friend's Status Will Be Available Here",
           style: TextStyle(
             fontSize: 18.0,
             fontFamily: 'Overpass',

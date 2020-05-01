@@ -4,10 +4,12 @@ import 'package:dmwa/Widgets/download_status.dart';
 import 'package:dmwa/Widgets/send_message.dart';
 import 'package:dmwa/utils/common.dart';
 import 'package:dmwa/utils/share.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:firebase_admob/firebase_admob.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
+import 'package:store_redirect/store_redirect.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -15,6 +17,44 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
+
+  @override
+  void initState() {
+    super.initState();
+    initFCM();
+  }
+
+  initFCM() {
+    _firebaseMessaging.configure(
+      onMessage: (Map<String, dynamic> message) async {
+        print("onMessage: $message");
+      },
+      onLaunch: (Map<String, dynamic> message) async {
+        print("onLaunch: $message");
+      },
+      onResume: (Map<String, dynamic> message) async {
+        print("onResume: $message");
+      },
+    );
+    _firebaseMessaging.requestNotificationPermissions(
+      const IosNotificationSettings(
+        sound: true,
+        badge: true,
+        alert: true,
+        provisional: true,
+      ),
+    );
+    _firebaseMessaging.onIosSettingsRegistered
+        .listen((IosNotificationSettings settings) {
+      print("Settings registered: $settings");
+    });
+    _firebaseMessaging.getToken().then((String token) {
+      assert(token != null);
+      print("TOKEN: $token");
+    });
+  }
+
   Future<bool> _onWillPop() {
     return Alert(
       context: context,
@@ -73,7 +113,7 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    var mediaQuery = MediaQuery.of(context);
+    // var mediaQuery = MediaQuery.of(context);
     FirebaseAdMob.instance.initialize(
       appId: Common().admobAppId,
     );
@@ -109,23 +149,20 @@ class _HomeState extends State<Home> {
           ),
         ),
         centerTitle: true,
-        // leading: Column(
-        //   mainAxisAlignment: MainAxisAlignment.center,
-        //   children: <Widget>[
-        //     IconButton(
-        //       icon: FaIcon(
-        //         FontAwesomeIcons.whatsapp,
-        //         color: Colors.white,
-        //       ),
-        //       onPressed: () {
-        //         FlutterOpenWhatsapp.sendSingleMessage(
-        //           "+919824868568",
-        //           "Hi, I have a project for you...",
-        //         );
-        //       },
-        //     ),
-        //   ],
-        // ),
+        leading: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            IconButton(
+              icon: FaIcon(
+                FontAwesomeIcons.solidStar,
+                color: Colors.white,
+              ),
+              onPressed: () {
+                StoreRedirect.redirect(androidAppId: "app.whatsapp.widget");
+              },
+            ),
+          ],
+        ),
         actions: <Widget>[
           ShareWidget(),
         ],
@@ -186,7 +223,7 @@ class _HomeState extends State<Home> {
                     Navigator.of(context).push(
                       MaterialPageRoute(
                         builder: (BuildContext context) {
-                          return DownloadStatus();
+                          return DownloadStatus('wa');
                         },
                       ),
                     );
@@ -203,7 +240,44 @@ class _HomeState extends State<Home> {
                     ),
                   ),
                   label: Text(
-                    "Download Status".toUpperCase(),
+                    "Download WhatsApp Status".toUpperCase(),
+                    style: TextStyle(
+                      fontWeight: FontWeight.w700,
+                      fontFamily: 'OverpassRegular',
+                    ),
+                  ),
+                  // padding: const EdgeInsets.all(15.0),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: new BorderRadius.circular(10.0),
+                  ),
+                  color: Theme.of(context).primaryColor,
+                ),
+                SizedBox(
+                  height: 15.0,
+                ),
+                RaisedButton.icon(
+                  onPressed: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (BuildContext context) {
+                          return DownloadStatus('wab');
+                        },
+                      ),
+                    );
+                  },
+                  elevation: 3.0,
+                  icon: Padding(
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 12.0,
+                      horizontal: 12.0,
+                    ),
+                    child: FaIcon(
+                      FontAwesomeIcons.download,
+                      color: Colors.white,
+                    ),
+                  ),
+                  label: Text(
+                    "Download WA Business Status".toUpperCase(),
                     style: TextStyle(
                       fontWeight: FontWeight.w700,
                       fontFamily: 'OverpassRegular',

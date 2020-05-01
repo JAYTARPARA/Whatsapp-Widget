@@ -1,5 +1,5 @@
 name: dmwa
-description: Whatsapp Widget - Send Message Without Saving Contact & Download Status.
+description: Whatsapp Widget - Send Message Without Saving Contact & Download Status. Whatsapp status saver. Whatsapp Send Message. Whatsapp Saver. Whatsapp Business status saver.
 
 # The following defines the version and build number for your application.
 # A version number is three numbers separated by dots, like 1.2.43
@@ -11,7 +11,7 @@ description: Whatsapp Widget - Send Message Without Saving Contact & Download St
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 1.0.4+4
+version: 1.1.5+5
 
 environment:
   sdk: ">=2.1.0 <3.0.0"
@@ -43,6 +43,8 @@ dependencies:
   url_launcher: ^5.4.5
   firebase_admob: ^0.9.3+2
   rflutter_alert: ^1.0.3
+  firebase_messaging: ^6.0.13
+  store_redirect: ^1.0.2
 
 dev_dependencies:
   flutter_test:

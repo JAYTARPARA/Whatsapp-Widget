@@ -5,10 +5,9 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'dart:io';
 import 'package:thumbnails/thumbnails.dart';
 
-final Directory _videoDir =
-    new Directory('/storage/emulated/0/WhatsApp/Media/.Statuses');
-
 class VideoScreen extends StatefulWidget {
+  final String type;
+  VideoScreen(this.type);
   @override
   VideoScreenState createState() => new VideoScreenState();
 }
@@ -21,10 +20,16 @@ class VideoScreenState extends State<VideoScreen> {
 
   @override
   Widget build(BuildContext context) {
+    Directory _videoDir;
+    if (widget.type == 'wa') {
+      _videoDir = new Directory(Common().videoDirWA);
+    } else if (widget.type == 'wab') {
+      _videoDir = new Directory(Common().videoDirWAB);
+    }
     if (!Directory("${_videoDir.path}").existsSync()) {
       return Center(
         child: Text(
-          "Install WhatsApp. Your Friend's Status will be available here.",
+          "Install WhatsApp/WhatsApp Business. Your Friend's Status will be available here.",
           style: TextStyle(
             fontSize: 18.0,
             fontFamily: 'Overpass',
