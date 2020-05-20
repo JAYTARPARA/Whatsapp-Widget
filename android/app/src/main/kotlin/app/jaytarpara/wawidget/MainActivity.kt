@@ -1,4 +1,4 @@
-package app.whatsapp.widget
+package app.jaytarpara.wawidget
 
 import androidx.annotation.NonNull;
 import io.flutter.embedding.android.FlutterActivity

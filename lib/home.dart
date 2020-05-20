@@ -158,7 +158,7 @@ class _HomeState extends State<Home> {
                 color: Colors.white,
               ),
               onPressed: () {
-                StoreRedirect.redirect(androidAppId: "app.whatsapp.widget");
+                StoreRedirect.redirect(androidAppId: "app.jaytarpara.wawidget");
               },
             ),
           ],

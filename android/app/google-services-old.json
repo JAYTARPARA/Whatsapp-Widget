@@ -8,38 +8,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:31960166528:android:17673fce18cd0cbbd5b665",
-        "android_client_info": {
-          "package_name": "app.jaytarpara.wawidget"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "31960166528-0r5joi3n0dmvlv02e6do2har4v9oktt5.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyCGRCPRAabqueECM-I9uqn1HgQlAENxEOs"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "31960166528-0r5joi3n0dmvlv02e6do2har4v9oktt5.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
         "mobilesdk_app_id": "1:31960166528:android:40181ac71f32539ed5b665",
         "android_client_info": {
-          "package_name": "app.whatsapp.widget"
+          "package_name": "app.jaytarpara.wawidget"
         }
       },
       "oauth_client": [

@@ -17,7 +17,7 @@
 <br/>
 <br/> 
 
-<a href="https://play.google.com/store/apps/details?id=app.whatsapp.widget">
+<a href="https://play.google.com/store/apps/details?id=app.jaytarpara.wawidget">
  <img alt='Get it on Google Play' src='https://play.google.com/intl/en_gb/badges/images/generic/en_badge_web_generic.png' width="230">
 </a>
  
